@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NodeStory{% endblock title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% block css_links %}{% endblock css_links %}
+    <style>{% block style_tag %}{% endblock style_tag %}</style>
+</head>
+<body style="height: 2000px">
+    {% include "includes/header.html" %}
+    {% block content %}
+    
+    {% endblock content %}
+    {% include "includes/footer.html" %}
+    <script>{% static "js/bootstrap.bundle.min.js" %}</script>
+</body>
+</html>

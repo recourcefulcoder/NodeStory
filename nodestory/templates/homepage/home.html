@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    NodeStory - your most visited website!
+{% endblock title %}
+
+{% block css_links %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% endblock css_links %}
+
+{% block style_tag %}
+    .hero {
+        background: url("{% static 'images/hero_image.jpg' %}") no-repeat center center/cover;
+        <!-- the mistake with image name was made on purpose - image found on the moment doesn't fit in well, so design will lack images for a while -->
+        color: white;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    body {
+      font-size: 1.2rem;
+    }
+{% endblock style_tag %}
+
+{% block content %}
+    <section class="hero">
+    <div class="container">
+      <h2 class="display-4">Where Stories Evolve Together</h2>
+      <p class="lead">Join our community to build and expand narratives, one chapter at a time.</p>
+      <a href="#features" class="btn btn-primary btn-lg">Learn More</a>
+    </div>
+  </section>
+
+  <section id="features" class="py-5">
+    <div class="container">
+      <h2 class="text-center section-heading">Features</h2>
+      <div class="row text-center mt-4">
+        <div class="col-md-4">
+          <img src="path/to/feature1.jpg" alt="Community Writing" class="img-fluid mb-3" style="height: 150px;">
+          <h5>Collaborative Writing</h5>
+          <p>Continue stories from anywhere and contribute to evolving plots.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="path/to/feature2.jpg" alt="User Ratings" class="img-fluid mb-3" style="height: 150px;">
+          <h5>User-Driven Ratings</h5>
+          <p>Grade each story node to highlight the best narratives.</p>
+        </div>
+        <div class="col-md-4">
+          <img src="path/to/feature3.jpg" alt="Dynamic Plots" class="img-fluid mb-3" style="height: 150px;">
+          <h5>Dynamic Plots</h5>
+          <p>Explore diverse developments for every story, shaped by community ideas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2 class="text-center section-heading">How It Works</h2>
+      <p class="text-center">Join the platform, choose a story, and start contributing! Every submission is rated, and the best ideas shine.</p>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <img src="path/to/howitworks.jpg" alt="How it works" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">1. Select a story to continue.</li>
+            <li class="list-group-item">2. Write your contribution as the next node.</li>
+            <li class="list-group-item">3. Let users rate your entry.</li>
+            <li class="list-group-item">4. Explore the best-rated developments.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
