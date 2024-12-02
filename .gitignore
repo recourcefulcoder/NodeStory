@@ -1,0 +1,6 @@
+.idea
+venv
+db.sqlite3
+s.sh
+setup.cfg
+.env
