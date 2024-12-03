@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_links %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock css_links %}
+
+{% block content %}
+    <div class="logout-container">
+    <h2 class="mb-3">You Have Logged Out</h2>
+    <div>
+      <a href="{% url 'auth_links:login' %}" class="btn btn-primary w-100">Sign In</a>
+      <a href="{% url 'homepage:index' %}" class="btn btn-outline-secondary w-100">Back to main page</a>
+    </div>
+  </div>
+{% endblock content %}

@@ -4,3 +4,4 @@ db.sqlite3
 scripts
 setup.cfg
 .env
+plan.txt

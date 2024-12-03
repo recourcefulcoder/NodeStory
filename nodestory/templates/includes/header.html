@@ -1,23 +1,21 @@
-{% load static %}
-
-<header class="bg-dark text-white py-3">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">WebsiteName</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="#signin" class="btn btn-outline-light me-2">Sign In</a>
-          </li>
-          <li class="nav-item">
-            <a href="#signup" class="btn btn-light">Sign Up</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+<header>
+  <nav class="navbar navbar-light bg-success justify-content-between">
+      <a class="navbar-brand mx-5" href="{% url 'homepage:index' %}">NodeStory</a>
+      {% url 'auth_links:login' as login_url %}
+      
+      {% if not request.user.is_authenticated and request.get_full_path != login_url %}
+        <div class=" form-inline text-right">
+          <button class="btn btn-info" >Sign Up</button>
+          <button class="btn btn-info" onclick="location.href='{% url 'auth_links:login' %}'">Sign In</button>
+        </div>
+      {% elif request.user.is_authenticated %}
+        <div class="form-inline text-right">
+          <button class="btn btn-info" >My Account</button>
+          <form action="{% url 'auth_links:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-info">Log Out</button>
+          </form>
+        </div>
+      {% endif %}       
   </nav>
-
-  </header>
+</header>

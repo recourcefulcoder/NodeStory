@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_links %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock css_links %}    
+
+{% block style_tag %}
+    body {
+      background-color: #f8f9fa; /* Light grey background */
+    }
+{% endblock style_tag %}
+
+{% block content %}
+    <div class="container">
+    <div class="login-container">
+      <h2 class="text-center mb-4">Login</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_username" class="form-label">Username</label>
+          <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value|default:'' }}">
+          {% if form.username.errors %}
+            <div class="text-danger">{{ form.username.errors|join:", " }}</div>
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          <label for="id_password" class="form-label">Password</label>
+          <input type="password" name="password" id="id_password" class="form-control" value="{{ form.password.value|default:'' }}">
+          {% if form.password.errors %}
+            <div class="text-danger">{{ form.password.errors|join:", " }}</div>
+          {% endif %}
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+      <div class="mt-3 text-center">
+        <p>Don't have an account? <a href="">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
