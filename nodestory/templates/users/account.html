@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <div class="container my-5">
+  <div class="row">
+    <!-- Sidebar Menu -->
+    <div class="col-md-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-stories-tab" data-bs-toggle="pill" href="#v-pills-stories" role="tab" aria-controls="v-pills-stories" aria-selected="true">
+          My Stories
+        </a>
+        <a class="nav-link" id="v-pills-info-tab" data-bs-toggle="pill" href="#v-pills-info" role="tab" aria-controls="v-pills-info" aria-selected="false">
+          General Info
+        </a>
+      </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="col-md-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <!-- My Stories Tab -->
+        <div class="tab-pane fade show active" id="v-pills-stories" role="tabpanel" aria-labelledby="v-pills-stories-tab">
+          <h3>My Stories</h3>
+          <p>Here you can manage your stories. (Add your custom story management content here.)</p>
+        </div>
+
+        <!-- General Info Tab -->
+        <div class="tab-pane fade" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
+          <h3>General Info</h3>
+          <p class="mb-4">Below is your account information:</p>
+
+          <!-- User Info Table -->
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row">Username</th>
+                <td>{{ request.user.username }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{ request.user.email }}</td>
+              </tr>
+              <tr>
+                <th scope="row">First Name</th>
+                <td>{{ request.user.first_name }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Last Name</th>
+                <td>{{ request.user.last_name }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-end mt-4">
+            <a href="/account/change_password" class="btn btn-primary me-2">Change Password</a>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changeInfoModal">
+              Change Account Info
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Changing Account Info -->
+<div class="modal fade" id="changeInfoModal" tabindex="-1" aria-labelledby="changeInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeInfoModalLabel">Edit Account Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="change-info-form">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}
+                <div class="form-text">{{ field.help_text }}</div>
+              {% endif %}
+              {% for error in field.errors %}
+                <div class="text-danger">{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="change-info-form" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

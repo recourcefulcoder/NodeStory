@@ -1,3 +1,5 @@
+![status](https://github.com/recourcefulcoder/NodeStory/actions/workflows/cd.yml/badge.svg)
+
 # NodeStory
 
 This app is an online web-site for communal storywriting.
