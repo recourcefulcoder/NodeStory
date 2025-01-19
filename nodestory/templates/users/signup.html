@@ -23,13 +23,20 @@
                 {% endfor %}
               </div>
             {% endfor %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Sign Up</button>
             </div>
           </form>
         </div>
         <div class="card-footer text-center">
-          <p>Already have an account? <a href="{% url 'auth_links:login' %}">Log in</a></p>
+          <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
         </div>
       </div>
     </div>

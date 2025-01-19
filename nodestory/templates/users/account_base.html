@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <!-- Vertical Menu -->
+    <div class="col-md-3">
+      <div class="list-group">
+        {% url 'users:review' as review_url %}
+        {% url 'users:password_change' as pass_url %}
+        {% url 'users:email_change' as email_url %}
+        {% url 'users:username_change' as username_url %}
+
+        <a href="{{review_url}}" class="list-group-item list-group-item-action {% if request.path == review_url %}active{% endif %}" >
+          My Stories
+        </a>
+        <div class="list-group-item bg-light text-muted text-center">
+          Security
+        </div>
+        <a href="{{pass_url}}" class="list-group-item list-group-item-action {% if request.path == pass_url %}active{% endif %}">
+          Change Password
+        </a>
+        <a href="{{username_url}}" class="list-group-item list-group-item-action {% if request.path == username_url %}active{% endif %}">
+          Change Username
+        </a>
+        <a href="{{email_url}}" class="list-group-item list-group-item-action {% if request.path == email_url %}active{% endif %}">
+          Change Email
+        </a>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9">
+      <div class="tab-content">
+        <!-- My Stories Tab -->
+
+        {% block account_content %}{% endblock account_content %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
