@@ -28,6 +28,7 @@ if not DEBUG:
 INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "homepage.apps.HomepageConfig",
+    "stories.apps.StoriesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

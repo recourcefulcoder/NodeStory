@@ -5,19 +5,20 @@ from django.shortcuts import redirect, render
 import users.forms as my_forms
 
 
+# needs some addition - define handling "invalid form" situation
 def signup(request):
     if request.method == "POST":
         form = my_forms.RegisterForm(request.POST)
         if form.is_valid():
-            print("VALID", form.cleaned_data)
+            # print("VALID", form.cleaned_data)
             user = form.save()
             login(request, user)
             return redirect("homepage:index")
-        else:
-            print("INVALID")
-            print(form.errors)
-            for key in form.errors.keys():
-                print(f"{key}: {form.errors[key]}")
+        # else:
+            # print("INVALID")
+            # print(form.errors)
+            # for key in form.errors.keys():
+            #     print(f"{key}: {form.errors[key]}")
     else:
         form = my_forms.RegisterForm()
     return render(request, "users/signup.html", {"form": form})
@@ -30,7 +31,7 @@ def review(request):
             request, "users/account_review.html",
         )
     if request.method == "POST":
-        print(request.POST)
+        # print(request.POST)
         pass
 
 
