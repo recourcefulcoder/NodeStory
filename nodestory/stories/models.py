@@ -15,6 +15,11 @@ class ClosureTable(models.Model):
 class StoryManager(models.Manager):
     def create(self, ancestor_id: int = None, **kwargs):
         created_object = super(StoryManager, self).create(**kwargs)
+        ClosureTable.objects.create(
+            ancestor_id=created_object.pk,
+            descendant_id=created_object.pk,
+            depth=0,
+        )
         if ancestor_id:
             records = ClosureTable.objects.filter(descendant_id=ancestor_id)
             for record in records:
@@ -23,12 +28,7 @@ class StoryManager(models.Manager):
                     descendant_id=created_object.pk,
                     depth=1 + record.depth,
                 )
-        else:
-            ClosureTable.objects.create(
-                ancestor_id=created_object.pk,
-                descendant_id=created_object.pk,
-                depth=0,
-            )
+        return created_object
 
 
 class StoryNode(models.Model):
@@ -42,3 +42,20 @@ class StoryNode(models.Model):
     text = models.TextField()
     tags = models.ManyToManyField(Tag)
     objects = StoryManager()
+
+    # def __init__(self):
+    #     pass
+    #
+    # def save(self,
+    #          *args,
+    #          force_insert=False,
+    #          force_update=False,
+    #          using=None,
+    #          update_fields=None):
+    #     if self.pk is None:
+    #         pass
+    #     super(StoryNode, self).save(*args,
+    #                                 force_insert=False,
+    #                                 force_update=False,
+    #                                 using=None,
+    #                                 update_fields=None)

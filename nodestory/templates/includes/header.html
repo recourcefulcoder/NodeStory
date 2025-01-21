@@ -1,8 +1,10 @@
+{% load i18n %}
+
 <header>
   <nav class="navbar navbar-light bg-success justify-content-between">
       <a class="navbar-brand mx-5" href="{% url 'homepage:index' %}">NodeStory</a>
       {% url 'login' as login_url %}
-      
+
       {% if not request.user.is_authenticated and request.get_full_path != login_url %}
         <div class=" form-inline text-right">
           <button class="btn btn-info" onclick="location.href='{% url 'users:signup' %}'">Sign Up</button>
@@ -16,6 +18,22 @@
             <button type="submit" class="btn btn-info">Log Out</button>
           </form>
         </div>
-      {% endif %}       
+      {% endif %}
   </nav>
 </header>
+
+<!--LANGUAGE CHANGER-->
+<!-- <form action=" url 'set_language' " method="post">-->
+<!--       {% csrf_token %}-->
+<!--       <input name="next" type="hidden" value="{{ redirect_to }}">-->
+<!--       <select name="language">-->
+<!--           {% get_current_language as LANGUAGE_CODE %}-->
+<!--           {% get_available_languages as LANGUAGES %}-->
+<!--           {% for lang in LANGUAGES %}-->
+<!--               <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>-->
+<!--                   {{ lang.1 }}-->
+<!--               </option>-->
+<!--           {% endfor %}-->
+<!--       </select>-->
+<!-- </form>-->
+<!--<button type="submit">{% trans "Change language" %}</button>-->

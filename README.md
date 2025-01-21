@@ -9,9 +9,13 @@ continued by community writers, thus creating variable developments for the
 main plot. Each part of the story (e.i. "node") is graded by users, providing 
 an opportunity for the best narration to pop up on the top of each story. 
 
-
+### Default fixture users
+* admin, password: "admin" - superuser
+* farnaK, password: "Hemaphoho54" - casual user
+* farmak, password: "Giggily15!" - casual user
 
 ### Database documentation
+![ER diagram](ER.jpg "ER diagram")
 Sotries are stored in database as trees, the structure used for storage - ClosureTable.
 
 Practically there are two tables:
