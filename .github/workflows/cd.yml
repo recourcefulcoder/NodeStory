@@ -12,19 +12,14 @@ jobs:
     env:
       DEBUG: False
       SECRET_KEY: test_secret_key
+      LANGUAGE_CODE: ru
     steps:
       - name: add_checkout
         uses: actions/checkout@v4
 
-      - name: Set Environment
-        run: |
-          echo "LANGUAGE_CODE=ru" >> $GITHUB_ENV
-          echo "SECRET_KEY=fjasdfhjkKDFSH" >> $GITHUB_ENV
-          echo "DEBUG=True" >> $GITHUB_ENV
-
       - name: Run server
         run: |
-          pip install -r requirements/prod.txt
+          pip install -r requirements/dev.txt
           cd nodestory
           timeout 5s python3 manage.py runserver || true
       - name: Run tests

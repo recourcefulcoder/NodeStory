@@ -7,27 +7,44 @@ class Tag(models.Model):
 
 
 class ClosureTable(models.Model):
-    ancestor_id = models.IntegerField()
-    descendant_id = models.IntegerField()
+    ancestor = models.ForeignKey(
+        "StoryNode",
+        on_delete=models.CASCADE,
+        related_name="children",
+        null=True,
+    )
+    descendant = models.ForeignKey(
+        "StoryNode",
+        on_delete=models.CASCADE,
+        related_name="parents",
+        null=True,
+    )
     depth = models.SmallIntegerField()
 
 
 class StoryManager(models.Manager):
-    def create(self, ancestor_id: int = None, **kwargs):
+    def create(self, ancestor=None, **kwargs):
         created_object = super(StoryManager, self).create(**kwargs)
-        ClosureTable.objects.create(
-            ancestor_id=created_object.pk,
-            descendant_id=created_object.pk,
-            depth=0,
-        )
-        if ancestor_id:
-            records = ClosureTable.objects.filter(descendant_id=ancestor_id)
+        if ancestor:
+            records = ClosureTable.objects.filter(descendant=ancestor)
             for record in records:
-                ClosureTable.objects.create(
-                    ancestor_id=record.ancestor_id,
-                    descendant_id=created_object.pk,
-                    depth=1 + record.depth,
-                )
+                if record.descendant != record.ancestor:
+                    ClosureTable.objects.create(
+                        ancestor=record.ancestor,
+                        descendant=created_object,
+                        depth=1 + record.depth,
+                    )
+            ClosureTable.objects.create(
+                ancestor=ancestor,
+                descendant=created_object,
+                depth=1,
+            )
+        else:
+            ClosureTable.objects.create(
+                ancestor=created_object,
+                descendant=created_object,
+                depth=0,
+            )
         return created_object
 
 

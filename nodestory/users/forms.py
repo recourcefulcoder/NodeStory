@@ -6,7 +6,7 @@ from django.forms import ModelForm
 class RegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ('username', 'password1', 'password2')
+        fields = ("username", "password1", "password2")
 
 
 class UpdateMailForm(ModelForm):

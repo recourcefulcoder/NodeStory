@@ -21,7 +21,8 @@ def signup(request):
 def review(request):
     if request.method == "GET":
         return render(
-            request, "users/account_review.html",
+            request,
+            "users/account_review.html",
         )
     if request.method == "POST":
         # print(request.POST)

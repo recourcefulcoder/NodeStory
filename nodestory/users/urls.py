@@ -10,7 +10,7 @@ settings_block = [
     path(
         "change_password/",
         auth_views.PasswordChangeView.as_view(),
-        name="password_change"
+        name="password_change",
     ),
     path("change_username/", views.review, name="username_change"),
     path("change_email/", views.review, name="email_change"),

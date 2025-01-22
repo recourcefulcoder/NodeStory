@@ -11,8 +11,21 @@ an opportunity for the best narration to pop up on the top of each story.
 
 ### Default fixture users
 * admin, password: "admin" - superuser
-* farnaK, password: "Hemaphoho54" - casual user
-* farmak, password: "Giggily15!" - casual user
+* farnaKK, password: "Hemaphoho54" - casual user
+* farMak, password: "Giggily15!" - casual user
+
+
+### Models documentation
+#### Model "StoryNode"
+Each instance of the model MUST be created within the program using create() 
+method of manager, because crucial database changes, related to addition of new
+StoryNode are executed within this method (adding records to ClosureTable table);
+will be edited in following versions 
+
+Children of one StoryNode may be accessed via 
+[RelatedManager](https://docs.djangoproject.com/en/5.1/topics/db/queries/#following-relationships-backward) 
+called "children", so syntax is basically following: FOO.children.all() 
+(where FOO is name of specific StoryNode instance).
 
 ### Database documentation
 ![ER diagram](ER.jpg "ER diagram")
@@ -23,6 +36,9 @@ Practically there are two tables:
 * ClosureTable, which is used for storage of relations between nodes.
 
 Recordings to ClosureTable are added automatically via calling "create" method of NodeStory Manager
+
+Heads (and only heads!) of story trees have relation to themselves in ClosureTable
+(i.e. record looking like "ancestor_id: 1", "descendant_id: 1")
 
 This structure allows efficient access to all the descendants of 
 particular node, as well as to all parents/any child, which is crucial for efficient
