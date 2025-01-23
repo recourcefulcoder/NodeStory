@@ -3,16 +3,17 @@
 <header>
   <nav class="navbar navbar-light bg-success justify-content-between">
       <a class="navbar-brand mx-5" href="{% url 'homepage:index' %}">NodeStory</a>
+      <button class="btn btn-info" onclick="location.href='{% url 'stories:create_story' %}'">{% translate "Create Story" %}</button>
       {% url 'login' as login_url %}
 
       {% if not request.user.is_authenticated and request.get_full_path != login_url %}
         <div class=" form-inline text-right">
-          <button class="btn btn-info" onclick="location.href='{% url 'users:signup' %}'">Sign Up</button>
-          <button class="btn btn-info" onclick="location.href='{% url 'login' %}'">Sign In</button>
+          <button class="btn btn-info" onclick="location.href='{% url 'users:signup' %}'">{% translate "Sign Up" %}</button>
+          <button class="btn btn-info" onclick="location.href='{% url 'login' %}'">{% translate "Sign In" %}</button>
         </div>
       {% elif request.user.is_authenticated %}
         <div class="form-inline text-right">
-          <button class="btn btn-info" onclick="location.href='{% url 'users:review' %}'">My Account</button>
+          <button class="btn btn-info" onclick="location.href='{% url 'users:review' %}'">{% translate "My Account" %}</button>
           <form action="{% url 'logout' %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-info">Log Out</button>

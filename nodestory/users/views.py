@@ -7,6 +7,7 @@ import users.forms as my_forms
 
 def signup(request):
     if request.method == "POST":
+        # print(request.POST)
         form = my_forms.RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()

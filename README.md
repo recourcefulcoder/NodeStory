@@ -9,7 +9,22 @@ continued by community writers, thus creating variable developments for the
 main plot. Each part of the story (e.i. "node") is graded by users, providing 
 an opportunity for the best narration to pop up on the top of each story. 
 
-### Default fixture users
+### Fixtures
+
+There are two fixture files - _fixture.json_ (main, updated if neccessary, 
+old data may be changed/deleted if needed) and _test_fixture.json_, which is
+used in testing and which data must not be deleted/changed as it can affect 
+tests' work
+
+download fixture data by using
+```bash
+cd nodestory
+python maange.py loaddata fixtures/fixture.json
+```
+
+in root directory of the project
+
+##### Default fixture users
 * admin, password: "admin" - superuser
 * farnaKK, password: "Hemaphoho54" - casual user
 * farMak, password: "Giggily15!" - casual user

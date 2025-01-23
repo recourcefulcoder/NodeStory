@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block content %}
-    <h1>You will make a story here!</h1>
-{% endblock content %}
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="{% url 'stories:create_story' %}" class="list-group-item list-group-item-action active">
+                        {% translate "Edit Story" %}
+                    </a>
+                    <a href="{% url 'stories:edit_description' %}" class="list-group-item list-group-item-action">
+                        {% translate "Edit Tags & Description" %}
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9">
+                <h2>{% translate "Create Your Story" %}</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}  <!-- Render the form dynamically -->
+                    <button type="submit" class="btn btn-primary">{% translate "Publish" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

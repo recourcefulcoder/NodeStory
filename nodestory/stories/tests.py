@@ -97,7 +97,7 @@ class StoryNodeModelTesting(TestCase):
                 records, target_collection, records_equal
             )
         )
-        # didn't use QuerySetEqual here because for unordered comparison
+        # didn't use assertQuerySetEqual here because for unordered comparison
         # records collection must be transformed into set(), which is
         # impossible because requires hashing, which is
         # not applicable to no-primary-key objects, which are my records.
