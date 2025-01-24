@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import gettext as _
 
 
 class Tag(models.Model):
@@ -80,9 +81,10 @@ class StoryNode(models.Model):
 
 
 class StoryHead(models.Model):
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, default=_("No title"))
     first_node = models.OneToOneField(
         StoryNode,
         on_delete=models.CASCADE,
         related_name="head_info",
     )
+    tags = models.ManyToManyField(Tag)

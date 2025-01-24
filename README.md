@@ -29,6 +29,7 @@ in root directory of the project
 * farnaKK, password: "Hemaphoho54" - casual user
 * farMak, password: "Giggily15!" - casual user
 
+These users are guaranteed for both fixture.json and test_fixture.json
 
 ### Models documentation
 #### Model "StoryNode"
@@ -58,3 +59,6 @@ Heads (and only heads!) of story trees have relation to themselves in ClosureTab
 This structure allows efficient access to all the descendants of 
 particular node, as well as to all parents/any child, which is crucial for efficient
 Depth-first search (DRF) of the tree.
+
+* StoryHead table - label for stories, attached to "tree roots" and keeps 
+* general story info - title, tags etc. 

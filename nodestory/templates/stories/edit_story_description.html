@@ -1,0 +1,14 @@
+{% extends "stories/edit_story_base.html" %}
+
+{% load i18n %}
+
+{% block edit_story_content %}
+    <div class="col-md-9">
+        <h2>{% translate "Edit Story Information" %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Render form fields dynamically -->
+            <button type="submit" class="btn btn-primary">{% translate "Save Changes" %}</button>
+        </form>
+    </div>
+{% endblock %}

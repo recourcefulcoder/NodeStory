@@ -1,16 +1,18 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import Client, TestCase, tag
+from django.urls import reverse
 
 from parameterized import parameterized
 
-from .models import ClosureTable, StoryNode
+from .models import ClosureTable, StoryHead, StoryNode
 
 
 def records_equal(record1, record2):
     return (
-        record1.ancestor == record2.ancestor
-        and record1.descendant == record2.descendant
-        and record1.depth == record2.depth
+            record1.ancestor == record2.ancestor
+            and record1.descendant == record2.descendant
+            and record1.depth == record2.depth
     )
 
 
@@ -27,6 +29,7 @@ def unordered_querysets_equal(queryset, object_list, equal_func):
     return True
 
 
+@tag("db-func")
 class StoryNodeModelTesting(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -69,7 +72,7 @@ class StoryNodeModelTesting(TestCase):
         ]
     )
     def test_proper_closure_table_row_amount_created(
-        self, story_name, target_amo
+            self, story_name, target_amo
     ):
         records = ClosureTable.objects.filter(
             descendant=getattr(self, story_name, None)
@@ -101,3 +104,24 @@ class StoryNodeModelTesting(TestCase):
         # records collection must be transformed into set(), which is
         # impossible because requires hashing, which is
         # not applicable to no-primary-key objects, which are my records.
+
+
+@tag("gen-unit")
+class GeneralUnitTesting(TestCase):
+    fixtures = ["test_fixture.json"]
+
+    def test_story_creation_access_restricted(self):
+        response = Client().get(reverse("stories:create_story"))
+        self.assertRedirects(
+            response,
+            f"{settings.LOGIN_URL}?next={reverse('stories:create_story')}",
+        )
+
+    def test_story_is_created(self):
+        c = Client()
+        c.login(username="admin", password="admin")
+        story_amo = StoryNode.objects.count()
+        story_head_amo = StoryHead.objects.count()
+        c.get(reverse("stories:create_story"))
+        self.assertEqual(story_amo + 1, StoryNode.objects.count())
+        self.assertEqual(story_head_amo + 1, StoryHead.objects.count())

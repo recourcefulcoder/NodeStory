@@ -3,7 +3,9 @@
 <header>
   <nav class="navbar navbar-light bg-success justify-content-between">
       <a class="navbar-brand mx-5" href="{% url 'homepage:index' %}">NodeStory</a>
-      <button class="btn btn-info" onclick="location.href='{% url 'stories:create_story' %}'">{% translate "Create Story" %}</button>
+      {% if request.user.is_authenticated %}
+        <button class="btn btn-info" onclick="location.href='{% url 'stories:create_story' %}'">{% translate "Create Story" %}</button>
+      {% endif %}
       {% url 'login' as login_url %}
 
       {% if not request.user.is_authenticated and request.get_full_path != login_url %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="list-group">
+                {% with pk=request.resolver_match.kwargs.pk %}
+                {% url 'stories:edit_description' pk=pk as description_url%}
+                {% url 'stories:edit_story_node' pk=pk as content_url%}
+                <a href="{{description_url}}"
+                   class="list-group-item list-group-item-action {%if request.path == description_url%}active{%endif%}">
+                    {% translate "Edit Tags & Description" %}
+                </a>
+                <a href="{{content_url}}"
+                   class="list-group-item list-group-item-action {%if request.path == content_url%}active{%endif%}">
+                    {% translate "Edit Contents" %}
+                </a>
+                {% endwith %}
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        {% block edit_story_content %}
+
+        {% endblock edit_story_content %}
+    </div>
+</div>
+{% endblock %}

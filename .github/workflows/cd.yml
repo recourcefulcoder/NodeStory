@@ -16,7 +16,10 @@ jobs:
     steps:
       - name: add_checkout
         uses: actions/checkout@v4
-
+      - name: Load fixtures
+        run: |
+          cd nodestory
+          python3 manage.py loaddata fixtures/fixture.json
       - name: Run server
         run: |
           pip install -r requirements/dev.txt

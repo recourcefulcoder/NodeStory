@@ -4,11 +4,11 @@ from django.forms import ModelForm
 from .models import StoryNode
 
 
-class NodeCreationForm(ModelForm):
+class BaseNodeCreationForm(ModelForm):
     class Meta:
         model = StoryNode
         fields = ["text"]
 
 
-class StoryCreationForm(NodeCreationForm):
+class NodeCreationForm(BaseNodeCreationForm):
     title = models.CharField()
