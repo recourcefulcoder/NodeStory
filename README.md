@@ -62,3 +62,21 @@ Depth-first search (DRF) of the tree.
 
 * StoryHead table - label for stories, attached to "tree roots" and keeps 
 * general story info - title, tags etc. 
+
+### Docs
+Service logic is splitted to three apps: 
++ [**users**](#users) (for handling account changes/auth, etc.), 
++ [**homepage**](#homepage) (for main page endpoints, not related to functionality direcly) 
++ [**stories**](#stories) (for main functionality as story creation/searching/etc.)
+
+
+##### users
+Besides basic auth endpoints (auth, signup, change password, etc.) these are added:
++ settings/ - allows seeing and changing account info + contains 
+  + stories/ page - shows user's stories (in development now)  
+
+##### homepage
+Has only one endpoint - main page, which is associated with endpoint "/"
+
+##### stories
+Allows edition and view of  specific story based on it's id, creation of new story.

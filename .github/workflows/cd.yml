@@ -18,7 +18,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Load fixtures
         run: |
+          pip install -r requirements/dev.txt
           cd nodestory
+          python3 manage.py migrate
           python3 manage.py loaddata fixtures/fixture.json
       - name: Run server
         run: |
