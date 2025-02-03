@@ -1,14 +1,19 @@
-from django.db import models
-from django.forms import ModelForm
+from ckeditor.widgets import CKEditorWidget
 
-from .models import StoryNode
+from django import forms
+
+from .models import StoryHead, StoryNode
 
 
-class BaseNodeCreationForm(ModelForm):
+class NodeCreationForm(forms.ModelForm):
+    text = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = StoryNode
-        fields = ["text"]
+        exclude = ["date_created", "author"]
 
 
-class NodeCreationForm(BaseNodeCreationForm):
-    title = models.CharField()
+class NodeDescriptionForm(forms.ModelForm):
+    class Meta:
+        model = StoryHead
+        fields = ["title", "tags"]

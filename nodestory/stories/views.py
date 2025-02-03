@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic.edit import UpdateView
 
-from .forms import NodeCreationForm
+from .forms import NodeCreationForm, NodeDescriptionForm
 from .models import StoryHead, StoryNode
 
 
@@ -15,9 +15,9 @@ def show_story(request, id):
 @login_required
 def create_story_and_redirect(request):
     new_node = StoryNode.objects.create(author=request.user)
-    StoryHead.objects.create(first_node=new_node)
+    head = StoryHead.objects.create(first_node=new_node)
     return HttpResponseRedirect(
-        reverse("stories:edit_story_node", args=[new_node.pk])
+        reverse("stories:edit_description", args=[head.pk])
     )
 
 
@@ -25,9 +25,11 @@ class EditStoryNode(UpdateView):
     model = StoryNode
     form_class = NodeCreationForm
     template_name = "stories/edit_story_node.html"
+    context_object_name = "story_node"
 
 
 class EditStoryDescription(UpdateView):
-    model = StoryNode
-    form_class = NodeCreationForm
+    model = StoryHead
+    form_class = NodeDescriptionForm
     template_name = "stories/edit_story_description.html"
+    context_object_name = "head_info"

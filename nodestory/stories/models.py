@@ -1,5 +1,8 @@
+from ckeditor.fields import RichTextField
+
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 
@@ -57,34 +60,23 @@ class StoryNode(models.Model):
         on_delete=models.SET_NULL,
     )
     # NULL will mean that post's author account is deleted
-    text = models.TextField()
+
+    text = RichTextField()
     tags = models.ManyToManyField(Tag)
     published = models.BooleanField(default=False)
     objects = StoryManager()
 
-    # def __init__(self):
-    #     pass
-    #
-    # def save(self,
-    #          *args,
-    #          force_insert=False,
-    #          force_update=False,
-    #          using=None,
-    #          update_fields=None):
-    #     if self.pk is None:
-    #         pass
-    #     super(StoryNode, self).save(*args,
-    #                                 force_insert=False,
-    #                                 force_update=False,
-    #                                 using=None,
-    #                                 update_fields=None)
+    def get_absolute_url(self):
+        return reverse("stories:show_story", args={self.pk})
 
 
 class StoryHead(models.Model):
     title = models.CharField(max_length=250, default=_("No title"))
     first_node = models.OneToOneField(
         StoryNode,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
+        # I should write referencing to the next story node
+        # or restrict from deletion first node at all
         related_name="head_info",
     )
     tags = models.ManyToManyField(Tag)

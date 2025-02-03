@@ -9,9 +9,15 @@
         <!-- Sidebar -->
         <div class="col-md-3">
             <div class="list-group">
-                {% with pk=request.resolver_match.kwargs.pk %}
-                {% url 'stories:edit_description' pk=pk as description_url%}
-                {% url 'stories:edit_story_node' pk=pk as content_url%}
+                {% if story_node is None %}
+                    {% url 'stories:edit_description' pk=head_info.pk as description_url%}
+                    {% url 'stories:edit_story_node' pk=head_info.first_node.pk as content_url%}
+                {% else %}
+                    {% url 'stories:edit_description' pk=story_node.head_info.pk as description_url%}
+                    {% url 'stories:edit_story_node' pk=story_node.pk as content_url%}
+                {% endif %}
+
+
                 <a href="{{description_url}}"
                    class="list-group-item list-group-item-action {%if request.path == description_url%}active{%endif%}">
                     {% translate "Edit Tags & Description" %}
@@ -20,7 +26,6 @@
                    class="list-group-item list-group-item-action {%if request.path == content_url%}active{%endif%}">
                     {% translate "Edit Contents" %}
                 </a>
-                {% endwith %}
             </div>
         </div>
 

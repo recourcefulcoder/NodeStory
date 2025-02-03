@@ -10,9 +10,9 @@ from .models import ClosureTable, StoryHead, StoryNode
 
 def records_equal(record1, record2):
     return (
-            record1.ancestor == record2.ancestor
-            and record1.descendant == record2.descendant
-            and record1.depth == record2.depth
+        record1.ancestor == record2.ancestor
+        and record1.descendant == record2.descendant
+        and record1.depth == record2.depth
     )
 
 
@@ -72,7 +72,7 @@ class StoryNodeModelTesting(TestCase):
         ]
     )
     def test_proper_closure_table_row_amount_created(
-            self, story_name, target_amo
+        self, story_name, target_amo
     ):
         records = ClosureTable.objects.filter(
             descendant=getattr(self, story_name, None)

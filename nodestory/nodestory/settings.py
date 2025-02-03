@@ -14,7 +14,6 @@ if os.path.isfile(dotenv_file):
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = os.environ["DEBUG"].lower() in ["true", "yes", "y", "1"]
@@ -35,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -124,11 +124,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_ROOT = "static/"
+
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# print(BASE_DIR / "static")
+
+STATICFILES_DIRS = []
 
 FIXTURE_DIRS = [
     BASE_DIR / "fixtures",
