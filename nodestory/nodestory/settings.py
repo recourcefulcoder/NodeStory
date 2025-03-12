@@ -12,11 +12,16 @@ dotenv_file = os.path.join(BASE_DIR.parent, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.environ["DEBUG"].lower() in ["true", "yes", "y", "1"]
+DEBUG = os.getenv("DJANGO_DEBUG", default="false").lower() in [
+    "true",
+    "yes",
+    "y",
+    "1",
+]
 
 ALLOWED_HOSTS = []
 if not DEBUG:
@@ -80,8 +85,12 @@ WSGI_APPLICATION = "nodestory.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "HOST": os.getenv("DB_HOST", default="localhost"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "PORT": 5432,
+        "USER": os.getenv("POSTGRES_USER", default="postgres"),
     }
 }
 
@@ -124,13 +133,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = "static/"
+STATIC_ROOT = "staticfiles"
 
 STATIC_URL = "static/"
 
 # print(BASE_DIR / "static")
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 FIXTURE_DIRS = [
     BASE_DIR / "fixtures",

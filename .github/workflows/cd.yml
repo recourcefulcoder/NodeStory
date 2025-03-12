@@ -1,4 +1,4 @@
-name: CD
+name: tests
 
 on:
   [workflow_dispatch, push]
@@ -6,6 +6,20 @@ on:
 jobs:
   testing:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: story_node
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     strategy:
       matrix:
         python-version: ["3.12"]
@@ -13,6 +27,9 @@ jobs:
       DEBUG: False
       SECRET_KEY: test_secret_key
       LANGUAGE_CODE: ru
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: story_node
     steps:
       - name: add_checkout
         uses: actions/checkout@v4
@@ -45,4 +62,4 @@ jobs:
         shell: bash
         run: |
          pip install flake8==7.1.1
-         flake8 --exclude .git,.github,migrations .
+         flake8 --exclude=.git,.github,migrations .
