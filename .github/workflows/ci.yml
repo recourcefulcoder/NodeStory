@@ -38,7 +38,7 @@ jobs:
           pip install -r requirements/dev.txt
           cd nodestory
           python3 manage.py migrate
-          python3 manage.py loaddata fixtures/fixture.json
+          python3 manage.py loaddata fixtures/test_fixture.json
       - name: Run server
         run: |
           pip install -r requirements/dev.txt
@@ -61,5 +61,5 @@ jobs:
       - name: check_PEP8
         shell: bash
         run: |
-         pip install flake8==7.1.1
-         flake8 --exclude=.git,.github,migrations .
+         pip install flake8 flake8-print flake8-import-order
+         flake8 .

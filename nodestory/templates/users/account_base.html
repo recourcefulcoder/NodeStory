@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container my-5">
@@ -12,19 +13,19 @@
         {% url 'users:username_change' as username_url %}
 
         <a href="{{review_url}}" class="list-group-item list-group-item-action {% if request.path == review_url %}active{% endif %}" >
-          My Stories
+          {% translate "My Stories" %}
         </a>
         <div class="list-group-item bg-light text-muted text-center">
-          Security
+          {% translate "Security" %}
         </div>
         <a href="{{pass_url}}" class="list-group-item list-group-item-action {% if request.path == pass_url %}active{% endif %}">
-          Change Password
+          {% translate "Change Password" %}
         </a>
         <a href="{{username_url}}" class="list-group-item list-group-item-action {% if request.path == username_url %}active{% endif %}">
-          Change Username
+          {% translate "Change Username" %}
         </a>
         <a href="{{email_url}}" class="list-group-item list-group-item-action {% if request.path == email_url %}active{% endif %}">
-          Change Email
+          {% translate "Change Email" %}
         </a>
       </div>
     </div>

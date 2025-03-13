@@ -15,8 +15,29 @@
                 </div>
             {% endfor %}
             <div class="row justify-content-center">
-                <button type="submit" class="btn btn-primary">{% translate "Publish" %}</button>
+                <button type="submit" class="btn btn-primary">{% translate "Save" %}</button>
             </div>
         </form>
+        {% if messages %}
+        <ul class="messages mt-3">
+            {% for message in messages %}
+                {% with message.level_tag|lower as alert_class %}
+                    {% if alert_class == "error" %}
+                        {% with "danger" as alert_class %}
+                            <div class="alert alert-{{ alert_class }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endwith %}
+                    {% else %}
+                        <div class="alert alert-{{ alert_class }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 {% endblock %}

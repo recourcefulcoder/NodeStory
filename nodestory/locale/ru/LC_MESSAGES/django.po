@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-21 09:51+0100\n"
+"POT-Creation-Date: 2025-03-13 11:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,56 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/includes/header.html:37
+#: stories/forms.py:16
+msgid "text"
+msgstr "текст"
+
+#: stories/forms.py:17
+msgid "publish node"
+msgstr "опубликовать узел"
+
+#: stories/forms.py:18 stories/forms.py:28
+msgid "tags"
+msgstr "тэги"
+
+#: stories/forms.py:27
+msgid "title"
+msgstr "заголовок"
+
+#: stories/models.py:74
+msgid "No title"
+msgstr "Без заголовка"
+
+#: stories/views.py:41
+msgid "You have successfully edited story node!"
+msgstr "Вы успешно изменили узел истории!"
+
+#: templates/includes/header.html:7
+msgid "Create Story"
+msgstr "Создать историю"
+
+#: templates/includes/header.html:13
+msgid "Sign Up"
+msgstr "Регистрация"
+
+#: templates/includes/header.html:14
+msgid "Sign In"
+msgstr "Вход в акк"
+
+#: templates/includes/header.html:18
+msgid "My Account"
+msgstr "Мой аккаунт"
+
+#: templates/includes/header.html:21
+msgid "Log Out"
+msgstr "Выйти"
+
+#: templates/includes/header.html:42
 msgid "Change language"
 msgstr "Сменить язык"
 
 #: templates/registration/password_change_form.html:7
+#: templates/users/account_base.html:22
 msgid "Change Password"
 msgstr "Изменить пароль"
 
@@ -35,3 +80,45 @@ msgstr "Отмена"
 #: templates/registration/password_change_form.html:24
 msgid "Update Password"
 msgstr "Сменить пароль"
+
+#: templates/stories/edit_story_base.html:23
+msgid "Edit Tags & Description"
+msgstr "Изменить тэги и описание"
+
+#: templates/stories/edit_story_base.html:27
+msgid "Edit Contents"
+msgstr "Изменить содержание"
+
+#: templates/stories/edit_story_description.html:7
+msgid "Edit Story Information"
+msgstr "Изменить информацию об истории"
+
+#: templates/stories/edit_story_description.html:11
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: templates/stories/edit_story_node.html:7
+msgid "Create Your Story"
+msgstr "Создайте вашу историю"
+
+#: templates/stories/edit_story_node.html:18
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/users/account_base.html:16
+msgid "My Stories"
+msgstr "Мои истории"
+
+#: templates/users/account_base.html:19
+msgid "Security"
+msgstr "Безопасность"
+
+#: templates/users/account_base.html:25
+#, fuzzy
+#| msgid "Change language"
+msgid "Change Username"
+msgstr "Сменить язык"
+
+#: templates/users/account_base.html:28
+msgid "Change Email"
+msgstr "Изменить почту"

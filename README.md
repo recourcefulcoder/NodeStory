@@ -1,4 +1,4 @@
-![status](https://github.com/recourcefulcoder/NodeStory/actions/workflows/cd.yml/badge.svg)
+![status](https://github.com/recourcefulcoder/NodeStory/actions/workflows/ci.yml/badge.svg)
 
 # NodeStory
 
@@ -17,6 +17,8 @@ Table of contents:
     - [Fixtures info](#fixtures)
   - [Django ORM's models docs](#models-documentation)
   - [Code docs](#code-documentation)
+- [Testing](#testing)
+  - [test fixture](#test-fixture) 
 
 
 ## Run application
@@ -32,7 +34,14 @@ For that, run from root directory of the project
 cd nodestory
 python manage.py migrate 
 ```
-4. Run server
+4. Load test [fixture](#fixtures)
+
+You can do it by running
+```bash
+python manage.py loaddata fixtures/fixture.json
+```
+
+6. Run server
 
 You can do that using django manage.py runserver. Assuming you are already in source (i.e. "/nodestory")
 directory of the project:
@@ -129,3 +138,20 @@ Has only one endpoint - main page, which is associated with endpoint "/"
 
 ##### stories
 Allows edition and view of  specific story based on it's id, creation of new story.
+
+Speaking of story creation - when person goes to "create_new" endpoint 
+(i.e. clicks "Create Story" button), new story Head is being created
+
+## Testing
+Standard django instruments (i.e. extension of standard python unittest module) were chosen
+as a base for testing
+
+### Test fixture
+
+Test data is provided in test_fixture.json, which contains [all test users](#fixtures) from fixture.json
+and a few stories/storyheads; author of all stories (meaning storyheads) is farMak.
+
+StoryNodes owners (with listed ids of story nodes, created by them):
+- farMak: 2, 3, 4
+- farnaKK: 1, 9
+- admin: 10

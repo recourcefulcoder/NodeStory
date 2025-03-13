@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase, tag
@@ -110,18 +112,63 @@ class StoryNodeModelTesting(TestCase):
 class GeneralUnitTesting(TestCase):
     fixtures = ["test_fixture.json"]
 
+    @classmethod
+    def setUpTestData(cls):
+        cls.anon_client = Client()
+        cls.farnak_client = Client()
+        cls.admin_client = Client()
+
+        cls.admin_client.login(username="admin", password="admin")
+        cls.farnak_client.login(username="farnaKK", password="Hemaphoho54")
+
     def test_story_creation_access_restricted(self):
-        response = Client().get(reverse("stories:create_story"))
+        response = self.anon_client.get(reverse("stories:create_story"))
         self.assertRedirects(
             response,
             f"{settings.LOGIN_URL}?next={reverse('stories:create_story')}",
         )
 
     def test_story_is_created(self):
-        c = Client()
-        c.login(username="admin", password="admin")
         story_amo = StoryNode.objects.count()
         story_head_amo = StoryHead.objects.count()
-        c.get(reverse("stories:create_story"))
+        self.admin_client.get(reverse("stories:create_story"))
         self.assertEqual(story_amo + 1, StoryNode.objects.count())
         self.assertEqual(story_head_amo + 1, StoryHead.objects.count())
+
+    def test_story_content_edition_access_restricted(self):
+        url = reverse("stories:edit_description", kwargs={"pk": 1})
+        response = self.anon_client.get(url)
+        self.assertRedirects(
+            response,
+            f"{settings.LOGIN_URL}" f"?next={url}",
+        )
+
+    def test_story_content_edition_author_checked(self):
+        response_get = self.farnak_client.get(
+            reverse("stories:edit_story_node", kwargs={"pk": 2})
+        )
+        response_post = self.farnak_client.post(
+            reverse("stories:edit_story_node", kwargs={"pk": 2}),
+            {"some_invalid_data": "some_invalid_data"},
+        )
+        self.assertEqual(response_get.status_code, HTTPStatus.FORBIDDEN)
+        self.assertEqual(response_post.status_code, HTTPStatus.FORBIDDEN)
+
+    def test_story_head_edition_access_restricted(self):
+        url = reverse("stories:edit_description", kwargs={"pk": 1})
+        response = self.anon_client.get(url)
+        self.assertRedirects(
+            response,
+            f"{settings.LOGIN_URL}" f"?next={url}",
+        )
+
+    def test_story_head_edition_author_checked(self):
+        response_get = self.farnak_client.get(
+            reverse("stories:edit_description", kwargs={"pk": 2})
+        )
+        response_post = self.farnak_client.post(
+            reverse("stories:edit_description", kwargs={"pk": 2}),
+            {"some_invalid_data": "some_invalid_data"},
+        )
+        self.assertEqual(response_get.status_code, HTTPStatus.FORBIDDEN)
+        self.assertEqual(response_post.status_code, HTTPStatus.FORBIDDEN)

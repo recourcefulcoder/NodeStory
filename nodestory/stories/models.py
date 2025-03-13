@@ -62,7 +62,7 @@ class StoryNode(models.Model):
     # NULL will mean that post's author account is deleted
 
     text = RichTextField()
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     published = models.BooleanField(default=False)
     objects = StoryManager()
 
@@ -72,6 +72,12 @@ class StoryNode(models.Model):
 
 class StoryHead(models.Model):
     title = models.CharField(max_length=250, default=_("No title"))
+    author = models.ForeignKey(
+        get_user_model(),
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    # NULL will mean that post's author account is deleted
     first_node = models.OneToOneField(
         StoryNode,
         on_delete=models.DO_NOTHING,
@@ -79,4 +85,4 @@ class StoryHead(models.Model):
         # or restrict from deletion first node at all
         related_name="head_info",
     )
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)

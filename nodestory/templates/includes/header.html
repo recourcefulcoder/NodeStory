@@ -18,7 +18,7 @@
           <button class="btn btn-info" onclick="location.href='{% url 'users:review' %}'">{% translate "My Account" %}</button>
           <form action="{% url 'logout' %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-info">Log Out</button>
+            <button type="submit" class="btn btn-info">{% translate "Log Out" %}</button>
           </form>
         </div>
       {% endif %}
